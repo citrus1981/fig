@@ -1,0 +1,21 @@
+redmine:
+  image: sameersbn/redmine:latest
+  ports:
+   - "80:80"
+  volumes:
+   - /opt/docker_data/redmine:/home/redmine/data
+  links:
+   - mysql:mysql
+   - memcached:memcached
+
+mysql:
+  image: sameersbn/mysql:latest
+  volumes:
+   - /opt/docker_data/mysql:/var/lib/mysql
+  environment:
+   - DB_NAME=redmine_production
+   - DB_USER=redmine
+   - DB_PASS=password
+
+memcached:
+  image: sameersbn/memcached:latest
